@@ -12,7 +12,7 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
-      cursor: none;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -26,6 +26,7 @@
     header {
       text-align: center;
       padding: 40px 20px 20px;
+      animation: fadeIn 1s ease forwards;
     }
 
     header h1 {
@@ -47,14 +48,7 @@
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       backdrop-filter: blur(5px);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    section.fade-in {
-      opacity: 1;
-      transform: translateY(0);
+      animation: fadeInUp 0.8s ease forwards;
     }
 
     h2 {
@@ -92,39 +86,41 @@
       margin-top: 60px;
       font-size: 0.95rem;
       color: #777;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Custom Cursor */
-    .cursor, .cursor-follower {
+    .custom-cursor {
       position: fixed;
       top: 0;
       left: 0;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      mix-blend-mode: difference;
-    }
-
-    .cursor {
-      width: 8px;
-      height: 8px;
-      background-color: #000;
-    }
-
-    .cursor-follower {
       width: 25px;
       height: 25px;
-      background-color: #000;
-      opacity: 0.1;
-      transition: width 0.3s, height 0.3s;
+      background: #00bcd4;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      mix-blend-mode: difference;
     }
   </style>
 </head>
 <body>
-  <!-- Custom Cursor Elements -->
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor"></div>
 
   <header>
     <h1>Hi, I’m Tejeswini!</h1>
@@ -148,11 +144,11 @@
   <section>
     <h2>Projects</h2>
     <ul>
-      <li><strong>HealthSync+</strong> — <a href="https://www.figma.com/design/ICOYCFnAUfumsCo4DKdl8A/Untitled?t=gIvikcgY3h8lnNQr-1" target="_blank">View Design</a></li>
-      <li><strong>Hackathon Landing Page</strong> — <a href="https://www.figma.com/design/dVfV7dM6LVoR1x7yD8rdto/Untitled?t=gIvikcgY3h8lnNQr-1" target="_blank">View Design</a></li>
       <li><strong>Swift Movers</strong> — <a href="https://www.figma.com/design/EmekXQZBIhckl79cJo6YdF/Untitled?node-id=0-1&p=f&m=draw" target="_blank">View Design</a></li>
       <li><strong>Helpmate</strong> — <a href="https://www.figma.com/design/t0g0zP8EccZCNaC4lXtIg2/Untitled?node-id=3-22&p=f&m=draw" target="_blank">View Design</a></li>
       <li><strong>Wellnest</strong> — <a href="https://www.figma.com/design/yZfJfpCZTdmYToleaaccOB/Untitled?m=draw" target="_blank">View Design</a></li>
+      <li><strong>HealthSync+</strong> — <a href="https://www.figma.com/design/ICOYCFnAUfumsCo4DKdl8A/Untitled?t=gIvikcgY3h8lnNQr-1" target="_blank">View Design</a></li>
+      <li><strong>Hackathon Landing Page</strong> — <a href="https://www.figma.com/design/dVfV7dM6LVoR1x7yD8rdto/Untitled?t=gIvikcgY3h8lnNQr-1" target="_blank">View Design</a></li>
     </ul>
   </section>
 
@@ -166,33 +162,13 @@
     © 2025 Tejeswini | All Rights Reserved
   </footer>
 
+  <!-- Custom Cursor JS -->
   <script>
-    // Fade-in animation on scroll
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("fade-in");
-        }
-      });
-    }, { threshold: 0.2 });
-
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-
-    // Custom cursor
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
+    const cursor = document.querySelector('.custom-cursor');
 
     document.addEventListener('mousemove', e => {
       cursor.style.top = `${e.clientY}px`;
       cursor.style.left = `${e.clientX}px`;
-
-      setTimeout(() => {
-        follower.style.top = `${e.clientY}px`;
-        follower.style.left = `${e.clientX}px`;
-      }, 50);
     });
   </script>
 </body>
